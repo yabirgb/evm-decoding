@@ -12,7 +12,13 @@ pub struct Address(pub [u8; 40]);
 
 impl fmt::Debug for Address {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", String::from_utf8_lossy(&self.0))
+        write!(f, "{}", &self.to_string())
+    }
+}
+
+impl ToString for Address {
+    fn to_string(&self) -> String {
+        String::from_utf8_lossy(&self.0).to_string()
     }
 }
 
@@ -31,15 +37,14 @@ impl From<&[u8]> for HexBytes {
 }
 
 impl PartialEq for TxHash {
-    fn eq(&self, other: &Self) -> bool{
-        return self.0 == other.0
+    fn eq(&self, other: &Self) -> bool {
+        return self.0 == other.0;
     }
 }
 
 #[derive(Debug)]
 pub struct EvmTxReceipt {
     pub tx_hash: Vec<u8>,
-
 }
 
 #[derive(Debug)]
